@@ -190,7 +190,7 @@ public class OdontólogoDaoH2 implements IDao<Odontologo> {
 
                 connection = H2Connection.getConnection();
                 connection.setAutoCommit(false);
-                String delete = "DELETE FROM ODONTOLOGO WHERE ID = ?";
+                String delete = "DELETE FROM ODONTOLOGOS WHERE ID = ?";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(delete);
                 preparedStatement.setInt(1, id);

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.backend</groupId>
-	<artifactId>VIQUE-FABRIZIO_DIBBLE-YAMILA</artifactId>
+	<artifactId>parcial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>VIQUE-FABRIZIO_DIBBLE-YAMILA</name>
 	<description>VIQUE-FABRIZIO_DIBBLE-YAMILA</description>
@@ -32,6 +32,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.12</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>

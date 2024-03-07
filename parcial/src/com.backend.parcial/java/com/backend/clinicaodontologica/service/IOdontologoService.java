@@ -5,11 +5,11 @@ import com.backend.parcial.entity.Odontologo;
 import java.util.List;
 
 public interface IOdontologoService {
-    Odontologo registrarOdontologo(Odontologo odontologo);
-    List<Odontologo> listarOdontologos();
+    OdontologoSalidaDto registrarOdontologo(OdontologoEntradaDto odontologo);
+    List<OdontologoSalidaDto> listarOdontologos();
 
-    Odontologo obtenerOdontologoPorId(int id);
-    Odontologo actualizar(Odontologo odontologo);
+    OdontologoSalidaDto obtenerOdontologoPorId(int id);
+    OdontologoSalidaDto actualizarOdontologo(OdontologoEntradaDto odontologo);
 
 
 

@@ -149,6 +149,96 @@ public class PacienteDaoH2 implements IDao<Paciente> {
 
         return pacientes;
     }
+    @Override
+    public Paciente actualizar(Paciente paciente) {
+
+        Connection connection = null;
+        Paciente pacienteActualizado = null;
+        try {
+
+            connection = H2Connection.getConnection();
+            connection.setAutoCommit(false);
+            String insert = "INSERT INTO PACIENTES (NOMBRE, APELLIDO, DNI,FECHA) VALUES(?, ?, ?, ?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, paciente.getNombre());
+            preparedStatement.setString(2, paciente.getApellido());
+            preparedStatement.setInt(3, paciente.getDni());
+            preparedStatement.setInt(4, paciente.getFecha());
+            preparedStatement.execute();
+
+            pacienteActualizado = new Paciente(paciente.getId(), paciente.getNombre(), paciente.getApellido(), paciente.getDni(), paciente.getFecha());
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            while (resultSet.next()) {
+
+                pacienteObtenido.setId(resultSet.getInt("id"));
+
+            }
+            connection.commit();
+            LOGGER.info("Paciente actualizado: " + odontologoObtenido);
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            e.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                    LOGGER.info("Hubo un error");
+                    LOGGER.error(e.getMessage());
+                    e.printStackTrace();
+                } catch (SQLException exception) {
+                    LOGGER.error(exception.getMessage());
+                    exception.printStackTrace();
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (Exception ex) {
+                        LOGGER.error("No pudimos cerrar la conexion: " + ex.getMessage());
+                    }
+                }
+            }
+        }
+        @Override
+        public void eliminar(int id) {
+
+            Connection connection = null;
+
+            try {
+
+                connection = H2Connection.getConnection();
+                connection.setAutoCommit(false);
+                String delete = "DELETE FROM PACIENTES WHERE ID = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(delete);
+                preparedStatement.setInt(1, id);
+                preparedStatement.execute();
+
+                connection.commit();
+                LOGGER.info("Paciente eliminado con éxito, ID: " + id);
+
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+                e.printStackTrace();
+                if (connection != null) {
+                    try {
+                        connection.rollback();
+                        LOGGER.info("Hubo un error al intentar eliminar al odontólogo " );
+                        LOGGER.error(e.getMessage());
+                        e.printStackTrace();
+                    } catch (SQLException exception) {
+                        LOGGER.error(exception.getMessage());
+                        exception.printStackTrace();
+                    } finally {
+                        try {
+                            connection.close();
+                        } catch (Exception ex) {
+                            LOGGER.error("No pudimos cerrar la conexion: " + ex.getMessage());
+                        }
+                    }
+                }
+            }
+        }
 
     private Paciente crearObjetoPaciente(ResultSet resultSet) throws SQLException {
 
