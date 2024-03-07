@@ -9,10 +9,10 @@ public interface IDao<T> {
     List<T> listarTodos();
 
 
-    T obtenerPorId(Long id);
+    T obtenerPorId(int id);
 
 
-    T actualizar(T entidad);
+    T actualizar(T t);
 
 
     void eliminar(int id);

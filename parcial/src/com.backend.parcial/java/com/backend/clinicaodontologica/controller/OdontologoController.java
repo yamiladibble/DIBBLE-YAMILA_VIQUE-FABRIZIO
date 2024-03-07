@@ -33,6 +33,11 @@ public class OdontologoController {
     }
     @PutMapping("/actualizar/{id}")//actualizar registro de odontologo
     public ResponseEntity<OdontologoSalidaDto> actualizarOdontologo(@RequestBody @Valid OdontologoEntradaDto odontologo){
-        return null; //pacienteService.actualizar(paciente);
+        return new ResponseEntity<>(odontologoService.actualizarOdontologo(odontologo), HttpStatus.OK);
     }
+    @DeleteMapping("/eliminar")//aliminar registro e odontologo
+    public ResponseEntity<?> eliminarOdontologo(@RequestParam int id){odontologoService.eliminarOdontologo(id);
+        return new ResponseEntity<>("Odontologo eliminado correctamente", HttpStatus.NO_CONTENT);
+    }
+
 }
